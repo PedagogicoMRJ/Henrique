@@ -14,24 +14,43 @@ public class GameManager : MonoBehaviour
     // Texto escrito "Player Left"
     [Header("Player Left")]
     // Classe que acessa a entidade objeto LeftPlayer da Unity
+    public GameObject LeftPlayer;
+    // Classe que acessa a entidade ojeto LeftGoal da Unity
     public GameObject PlayerLeftGoal;
     // Texto escrito "Player Right"
-    [Header("Player Right")]
-    // Classe que acessa a entidade objeto PlayerLeftScore da Unity
     public GameObject PlayerLeftText;
     // Classe que acessa a entidade objetoPlayer RightScore da Unity
+    [Header("Player Right")]
+    // Classe que acessa a entidade objeto RightPlayer a Unity
+    public GameObject RightPlayer;
+    // Classe que acessa a entidade objeto RightGoal da Unity
+    public GameObject PlayerRightGoal;
+    // Texto escrito "Score UI"
+    [Header("Score UI")]
+    // Classe que acessa a entidade objeto PlayerLeftScore da Unity
+    private int PlayerLeftScore;
+    //Variável que armazena a pontuação do jogador a direita
+    private int PlayerRightScore;
     public GameObject PlayerRightText;
     // Variável que armazena a pontuação do jogador a esquerda
-    private int PlayerLeftScore;
-    // Variável que armazena a pontuação do jogador a direita
-    private int PlayerRightScore;
-    // Agunção PlyerLeftScore registra que o jogador a esquerda pontuou
     public void PlayerLeftScored()
     {
         // Aumenta o valor contido na variável PlayerLeftScore
         PlayerLeftScore++;
         //Atribui ao texto do objto TMP PLayerLeftScore oo valor da variável PlayerLefScore
         PlayerLeftText.GetComponent<TextMeshProUGUI>().text = PlayerLeftScore.ToString();
+        // Chama a função ResetPosition
+        ResetPosition();
+    }
+    // A função ResetPosition chama as funções Reset dos Scripts Ball e Racket
+    public void ResetPosition()
+    {
+        // Chama a função Reset do script Ball do componente Ball
+        Ball.GetComponent<Ball>().Reset();
+        // Chama a função Reset do script racket do componente LeftPlayer
+        LeftPlayer.GetComponent<Racket>().Reset();
+        // Chama a função Reset do script Racket do component RightPlayer
+        RightPlayer.GetComponent<Racket>().Reset();
     }
     // A função PlayerLeftScore registra que o jogador a esquerda pontuou
     public void PlayerRightScored()
