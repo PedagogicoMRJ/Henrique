@@ -22,7 +22,7 @@ public class Goal : MonoBehaviour
                 // Exibe a mensagem "Player Left Scored" na área de debugs
                 Debug.Log("Player Left Scored");
                 // Chama a função PlayerLeftScored do script GameManager do objeto GameManager
-                GameObject.Find("GameManager").GetComponent<GameManager>().PlayerRightScored();
+                GameObject.Find("GameManager").GetComponent<GameManager>().PlayerLeftScored();
             }
             // Caso a condição seja falsa
             else

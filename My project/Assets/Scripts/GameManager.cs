@@ -57,6 +57,9 @@ public class GameManager : MonoBehaviour
     {
         // Aumenta o valor contido na variável PlayerRightScore
         PlayerRightScore++;
+        PlayerRightText.GetComponent<TextMeshProUGUI>().text = PlayerRightScore.ToString();
+        // Chama a função ResetPosition
+        ResetPosition();
     }
    
 
