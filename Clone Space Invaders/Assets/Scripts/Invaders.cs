@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class Invaders : MonoBehaviour
 {
     // Objeto do tipo Invader que receberá os prefabs dos Invaders
@@ -14,6 +14,12 @@ public class Invaders : MonoBehaviour
     public float speed;
     // Vetor que armazena a direção do movimento dos Invaders
     private Vector3 direction = Vector2.right;
+    // Variável que armazena a taxa de disparo de misseis
+    public float missileRate;
+    // Campo do tipo Laser para gerar missieis
+    public Laser missilePrefabs;
+    // Variável que armazena o número de invaders mortos
+    public int invadersKilled;
     private void Awake()
     {
         // laço de repetição responsável por poicionar os Invaders nas linhas
@@ -50,23 +56,23 @@ public class Invaders : MonoBehaviour
         // Atribui o valor convertido da câmera do jogo ao vetor leftEdge
         Vector3 leftEdge = Camera.main.ViewportToWorldPoint(Vector3.zero);
         // Atribui o valor convertido da câmera do jogo ao vetor RightEdge
-        Vector3 RightEdge = Camera.main.ViewportToWorldPoint(Vector3.right);
+        Vector3 rightEdge = Camera.main.ViewportToWorldPoint(Vector3.right);
         // Altera a direção e altura de cada invader caso atinjam as laterias da tela
-        foreach (Transform invader in this.transform);
+        foreach (Transform invader in this.transform)
         {
             // Condição que verifica se os invaders não estão ativos na hierarquia
-            if (direction == Vector3.right && invader.position.x <= (leftEdge.x + 0.5f))
+            if (!invader.gameObject.activeInHierarchy)
             {
                 continue;
             }
             // Verifica se a posição se a posição dos invaders é maior que a posição da lateral direita da tela
-            if (direction == Vector.right && Invader.position.x >= (rightEdge.x - 0.5f))
+            if (direction == Vector3.right && invader.position.x >= (rightEdge.x - 0.5f))
             {
                 // Chama a função AdvancedRow
                 AdvancedRow();
                 // Verifica se a posição dos invaders é menor que a posição da lateral esquerda da tela
             }
-            else if (direction == Vector3.left && Invader.position.x <= (leftEdge.x + 0.5f))
+            else if (direction == Vector3.left && invader.position.x <= (leftEdge.x + 0.5f))
             {
                 AdvancedRow();
             }
@@ -83,11 +89,45 @@ public class Invaders : MonoBehaviour
         position.y -= 0.2f;
         // Altera a posição dos invaders de acordo com o vetor position
         this.transform.position = position;
-        }
+    }
+
+    // Função chamada ao iniciar o jogo
+private void Start()
+{
+    // Invoca o método MissileAttack repetidas vezes
+    InvokeRepeating(nameof(MissileAttack), Time.deltaTime, 5.0f * Time.deltaTime);
+}
+    // Função que gerá um novo missil
+    private void MissileAttack()
+    {
+        foreach (Transform invader in this.transform)
+        {
+            if (!invader.gameObject.activeInHierarchy)
+            {
+                continue;
             }
-        
-        
-            
-            
-        
-    
+            // Verifica se um valor aleatório é menor que 1 dividido pela taxa de misseis
+            if (Random.value <= (1.0f / this.missileRate))
+            {
+                // Instancia um novo missil na posiçã do invader
+                Instantiate(this.missilePrefabs, invader.position, Quaternion.identity);
+                // Quebra a linha de repetição
+                break;
+            }
+        }
+    }
+    // Função que aumenta a velocidade dos Invaders quando um deles é morto
+    private void InvaderKilled()
+    {
+        // Aumenta em 0.25 a velocidade dos Invaders
+        speed += 0.1f;
+        // Diminui em 10 a taxa de misseis
+        missileRate -= 10f;
+        // Aumenta o numero de invaders morts
+        invadersKilled++;
+        if (invadersKilled == 27)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+    }
+}
