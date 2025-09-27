@@ -6,6 +6,8 @@ public class Goal : MonoBehaviour
 {
     //Variável booleana para identifica o gol do jogador a esquerda
     public bool isPlayerLeftGoal;
+    // Variavel que armazena o audio do gol
+    public AudioSource audiogoal;
 
     // A função OnTriggerEnter2D é chamada ao detectar uma colisão entre objetos
     private void OnTriggerEnter2D(Collider2D collision)
@@ -15,6 +17,8 @@ public class Goal : MonoBehaviour
         if (collision.gameObject.CompareTag("Ball"))
         // Caso a condição seja verdadeira
         {
+            // Aciona o audio do gol
+            audiogoal.Play();
             // Verifica se a variável booleana isPlayerLeftGoal NÂO é verdadeira
             if (!isPlayerLeftGoal)
             // Caso a condição seja vedadeira

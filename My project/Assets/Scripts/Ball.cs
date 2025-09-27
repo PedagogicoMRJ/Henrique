@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ball :  MonoBehaviour
+public class Ball : MonoBehaviour
 {
     // Variável que armazena a velocidade da bola
     public float speed;
@@ -10,6 +10,8 @@ public class Ball :  MonoBehaviour
     public Rigidbody2D rb;
     // Vetor que armazena a posição inicial x, y, z da bola
     public Vector3 startPosition;
+    // Variável que armazena o audio da bola   
+    public AudioSource audioball;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +20,7 @@ public class Ball :  MonoBehaviour
         startPosition = transform.position;
         //chama a função launch
         Launch();
-        
+
     }
 
     // a função launch gera o movimento da bola
@@ -42,9 +44,14 @@ public class Ball :  MonoBehaviour
         // Chama a função Launch
         Launch();
     }
-    // Update is called once per frame
-    void Update()
-    {
         
+        // A função OncollisionEnter2D é chamada ao detectar uma colisão entre objetos
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Aciona o audio da bola
+        audioball.Play();
     }
-}
+    }
+    // Update is called once per frame
+    
+
