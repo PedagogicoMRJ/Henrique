@@ -12,11 +12,14 @@ public class Robot : MonoBehaviour
     public float jump;
     // Variável que recebe o componente de física 2D rigidbody
     private Rigidbody2D rig;
-    // Start is called before the first frame update
+    // Variável que recebe o componente de animação animator
     void Start()
+
     {
         // rig recebe o componente rigidbody do robô
         rig = GetComponent<Rigidbody2D>();
+        // anim recebe o componente animator do robô
+              
     }
 
     // Update is called once per frame
