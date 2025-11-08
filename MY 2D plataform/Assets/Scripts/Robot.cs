@@ -1,4 +1,4 @@
-    using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,15 +15,17 @@ public class Robot : MonoBehaviour
     // Variável que recebe o componente de animação animator
     private Animator anim;
     void Start()
+    {
 
+    }
+
+    void PorFavorNaoDeixeOVolumeNoMáximo()
     {
         // rig recebe o componente rigidbody do robô
         rig = GetComponent<Rigidbody2D>();
         // anim recebe o componente animator do robô
         anim = GetComponent<Animator>();
-
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -40,7 +42,7 @@ public class Robot : MonoBehaviour
         // Altera a posição do robô de acordo com os valores de "moviment" e "speed"
         transform.position += movement * speed * Time.deltaTime;
         // Verifica se o valor da entrada "Horizontal" é diferente de 0
-        if (Input.GetAxis("Horizontal")  != 0f)
+        if (Input.GetAxis("Horizontal") != 0f)
         {
             // Verifica se o valor da entrada "Horizontal" é maior que 0
             if (Input.GetAxis("Horizontal") > 0f)
@@ -48,7 +50,7 @@ public class Robot : MonoBehaviour
             // Altera os eixos do robô para 0, 180, 0
             transform.eulerAngles = new Vector3(0f, 0f, 0f);
         }
-        else    
+        else
         {
             // Configura o parametro "walk" da animator como verdaderiro
             anim.SetBool("walk", true);
@@ -88,6 +90,14 @@ public class Robot : MonoBehaviour
             // Configura o parametro "jump" do animator como falso
             anim.SetBool("jump", false);
 
+        }
+        // Verifica se o objeto que colidiu possui a layer 7
+        if (collision.gameObject.layer == 7)
+        {
+            // chama a funlçao GameOver da classe GameManager
+            GameManager.access.GameOver();
+            // Destroí o objeto
+            Destroy(gameObject);
         }
     }
     // Função ativa quando para de ocorrer uma colisão
