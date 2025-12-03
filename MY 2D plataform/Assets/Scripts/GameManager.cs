@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public Text scoreboard;
     // Variável estática ligada a classe
     public static GameManager access;
+    public GameObject gameover; 
     public void ScoreBoard()
     {
         // Variável que armazena o texto do placar

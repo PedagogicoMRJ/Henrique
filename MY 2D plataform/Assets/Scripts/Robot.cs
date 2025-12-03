@@ -16,7 +16,7 @@ public class Robot : MonoBehaviour
     private Animator anim;
     void Start()
     {
-
+        PorFavorNaoDeixeOVolumeNoMáximo();
     }
 
     void PorFavorNaoDeixeOVolumeNoMáximo()
