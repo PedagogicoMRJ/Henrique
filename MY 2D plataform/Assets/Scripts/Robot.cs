@@ -96,9 +96,11 @@ public class Robot : MonoBehaviour
         }
         else if (collision.gameObject.layer == 3)
         {
+            Debug.Log("void");
             // chama a funlçao GameOver da classe GameManager
             GameManager.access.GameOver();
             // Destroí o objeto
+    
             Destroy(gameObject);
         }
     }

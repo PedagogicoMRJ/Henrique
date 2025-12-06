@@ -7,11 +7,12 @@ public class Battery : MonoBehaviour
     // Variável que recebe a pontuação da bateria
     public int score;
     // Função chamada ao objeto ser atravessado
-    private void OntriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         // Verifica se objeto que colidiu possui a tag Player
         if(collision.gameObject.tag == "Player")
         {
+            Debug.Log("Pegou");
             // Acessa variável totalscore da classe GmaeManager
             GameManager.access.totalscore += score;
             GameManager.access.ScoreBoard();
