@@ -16,11 +16,6 @@ public class Robot : MonoBehaviour
     private Animator anim;
     void Start()
     {
-        PorFavorNaoDeixeOVolumeNoMáximo();
-    }
-
-    void PorFavorNaoDeixeOVolumeNoMáximo()
-    {
         // rig recebe o componente rigidbody do robô
         rig = GetComponent<Rigidbody2D>();
         // anim recebe o componente animator do robô
@@ -46,21 +41,21 @@ public class Robot : MonoBehaviour
         {
             // Verifica se o valor da entrada "Horizontal" é maior que 0
             if (Input.GetAxis("Horizontal") > 0f)
+            {
                 anim.SetBool("walk", true);
             // Altera os eixos do robô para 0, 180, 0
-            transform.eulerAngles = new Vector3(0f, 0f, 0f);
-        }
-        else
-        {
-            // Configura o parametro "walk" da animator como verdaderiro
-            anim.SetBool("walk", true);
-            // Altera os eixos do robô para 0, 180, 0
-            transform.eulerAngles = new Vector3(0f, 0f, 0f);
-        }
+                transform.eulerAngles = new Vector3(0f, 0f, 0f);
+            }
+            else
+            {
+                // Configura o parametro "walk" da animator como verdaderiro
+                anim.SetBool("walk", true);
+                // Altera os eixos do robô para 0, 180, 0
+                transform.eulerAngles = new Vector3(0f, 180f, 0f);
+            }
         // Configura o parametro "walk' da animator como falso
-        anim.SetBool("walk", false);
+        }
     }
-
 
     // Função que controla o pulo do robô
     void Jump()
@@ -92,7 +87,14 @@ public class Robot : MonoBehaviour
 
         }
         // Verifica se o objeto que colidiu possui a layer 7
-        if (collision.gameObject.layer == 7)
+        else if (collision.gameObject.layer == 7)
+        {
+            // chama a funlçao GameOver da classe GameManager
+            GameManager.access.GameOver();
+            // Destroí o objeto
+            Destroy(gameObject);
+        }
+        else if (collision.gameObject.layer == 3)
         {
             // chama a funlçao GameOver da classe GameManager
             GameManager.access.GameOver();
@@ -101,15 +103,4 @@ public class Robot : MonoBehaviour
         }
     }
     // Função ativa quando para de ocorrer uma colisão
-    void OnCollisionExit2D(Collision2D collision)
-    {
-        // Verifica se o objeto colidido possuí a layer 6
-        if (collision.gameObject.layer == 6)
-        {
-            // Atribui o valor verdadeiro a variavel isjumping
-            isjumping = true;
-            // Configura o parametro "jump" do animator como verdadeiro
-            anim.SetBool("jump", true);
-        }
-    }
 }

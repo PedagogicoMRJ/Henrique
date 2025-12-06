@@ -3,7 +3,9 @@ guid: ca415c96b3099c348892e1589d77213f
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - scoreboard: {instanceID: 0}
+  - gameover: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
